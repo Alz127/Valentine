@@ -1,139 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine 💘</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentines 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #ff5f9e, #ffb3c6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff5f9e, #ffb3c6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
 
-    .container {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(12px);
-      padding: 40px;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(255, 20, 147, 0.6);
-      animation: pop 1s ease;
-    }
+  .card {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 20, 147, 0.6);
+    animation: pop 1s ease;
+    max-width: 400px;
+  }
 
-    h1 {
-      color: white;
-      font-size: 2.5rem;
-      text-shadow: 0 0 15px hotpink;
-    }
+  h1 {
+    color: white;
+    font-size: 3rem;
+    text-shadow: 0 0 15px hotpink;
+    margin-bottom: 20px;
+  }
 
-    .buttons {
-      margin-top: 30px;
-    }
+  p {
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-shadow: 0 0 8px pink;
+  }
 
-    button {
-      border: none;
-      padding: 15px 35px;
-      font-size: 1.1rem;
-      border-radius: 40px;
-      margin: 10px;
-      cursor: pointer;
-      background: #ff2f92;
-      color: white;
-      box-shadow: 0 0 15px rgba(255, 47, 146, 0.9);
-      transition: 0.3s;
-    }
+  button {
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border-radius: 40px;
+    margin: 15px;
+    cursor: pointer;
+    background: #ff2f92;
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 47, 146, 0.9);
+    transition: 0.3s;
+  }
 
-    button:hover {
-      transform: scale(1.1);
-      background: #ff006e;
-    }
+  button:hover {
+    transform: scale(1.1);
+    background: #ff006e;
+  }
 
-    .message {
-      display: none;
-      margin-top: 25px;
-      color: white;
-      font-size: 1.5rem;
-      text-shadow: 0 0 10px pink;
-      animation: fade 1s ease;
-    }
+  .hidden {
+    display: none;
+  }
 
-    .heart {
-      position: absolute;
-      font-size: 20px;
-      animation: float 6s linear infinite;
-      opacity: 0.8;
-    }
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.8;
+  }
 
-    @keyframes float {
-      from {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(-10vh);
-        opacity: 1;
-      }
+  @keyframes float {
+    from {
+      transform: translateY(100vh);
+      opacity: 0;
     }
+    to {
+      transform: translateY(-10vh);
+      opacity: 1;
+    }
+  }
 
-    @keyframes pop {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+  @keyframes pop {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>Will you be my Valentine? 💖</h1>
+<!-- START SCREEN -->
+<div class="card" id="startScreen">
+  <h1>Valentines 💘</h1>
+  <button onclick="start()">Start 💖</button>
+</div>
 
-    <div class="buttons" id="buttons">
-      <button onclick="yes()">Yes 💕</button>
-      <button onclick="no()">No 💔</button>
-    </div>
+<!-- MESSAGE SCREEN -->
+<div class="card hidden" id="messageScreen">
+  <p>
+    Mina, I think you’re the most beautiful girl in the world 🌹  
+    and you have the most addicting personality.  
+    I really wanted to ask you something…
+  </p>
+  <button onclick="next()">Continue 💌</button>
+</div>
 
-    <div class="message" id="message">
-      You just made my heart smile ❤️  
-      I’m really happy you said yes 🌹✨
-    </div>
+<!-- QUESTION SCREEN -->
+<div class="card hidden" id="questionScreen">
+  <h1>Will you be my Valentine? 💕</h1>
+  <div id="buttons">
+    <button onclick="yes()">Yes 💖</button>
+    <button onclick="no()">No 🙈</button>
   </div>
+  <p class="hidden" id="finalMessage">
+    You just made my heart smile ❤️  
+    I’m really happy you said yes 🌹✨
+  </p>
+</div>
 
-  <script>
-    function yes() {
-      document.getElementById("buttons").style.display = "none";
-      document.getElementById("message").style.display = "block";
-    }
+<script>
+  function start() {
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("messageScreen").classList.remove("hidden");
+  }
 
-    function no() {
-      document.getElementById("buttons").innerHTML = `
-        <button onclick="yes()">Yes 💕</button>
-        <button onclick="yes()">Yes 😌</button>
-      `;
-    }
+  function next() {
+    document.getElementById("messageScreen").classList.add("hidden");
+    document.getElementById("questionScreen").classList.remove("hidden");
+  }
 
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (20 + Math.random() * 25) + "px";
-      document.body.appendChild(heart);
+  function yes() {
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("finalMessage").classList.remove("hidden");
+  }
 
-      setTimeout(() => heart.remove(), 6000);
-    }, 300);
-  </script>
+  function no() {
+    document.getElementById("buttons").innerHTML = `
+      <button onclick="yes()">Yes 💕</button>
+      <button onclick="yes()">Yes 😌</button>
+    `;
+  }
+
+  // floating hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (20 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }, 300);
+</script>
 
 </body>
 </html>
